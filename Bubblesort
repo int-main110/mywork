@@ -1,0 +1,48 @@
+package bubblesort;
+
+import java.util.Arrays;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class Bubble {
+
+	public static void main(String[] args)throws FileNotFoundException {
+		// TODO Auto-generated method stub
+		int [] arr1 = new Bubble().getNumbers(10000);
+		int [] arr2 = new Bubble().getNumbers(10000);
+		long startMili = System.currentTimeMillis();   //冒泡计时开始
+		bubblesort(arr1);                     //冒泡排序
+		long endMili = System.currentTimeMillis();     //冒泡计时结束
+		System.out.println("冒泡排序耗时"+(endMili-startMili)+"ms");
+		long startMili_two = System.currentTimeMillis();   //sort计时开始
+		Arrays.sort(arr2);                    //调用sort函数排序
+		long endMili_two = System.currentTimeMillis();     //sort计时结束
+		System.out.println("调用sort函数排序耗时"+(endMili_two-startMili_two)+"ms");
+	}
+public static void bubblesort(int arr[]) {
+	if(arr ==null || arr.length<2)
+		return;
+	for(int i = 0; i < arr.length; i++) {
+		for(int j = 0; j<arr.length-i-1; j++) {
+			if(arr[j]>arr[j+1]) {
+				int temp = arr[j+1];
+				arr[j+1] = arr[j];
+				arr[j] = temp; 
+			}
+		}
+	}
+	}
+public int[] getNumbers(int number)throws FileNotFoundException {
+
+	Scanner in = new Scanner(new File("datafile.txt"));  //读取txt文件的数据
+	String str = in.next();
+	String [] split = str.split(",");               //将数据以逗号分割开
+	int[] nums = new int [number];
+	for(int i = 0; i<number; i++) {
+		nums[i] = Integer.valueOf(split[i]);
+	}
+	in.close();
+	return nums;
+}
+}
